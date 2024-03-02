@@ -1,27 +1,32 @@
+
 const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
 app.use(express.static("public"));
 
-
-mongoose.connect("mongodb+srv://testUser:1234@cluster0.ypocggm.mongodb.net/Database?retryWrites=true&w=majority&appName=Cluster0");
+mongoose.connect(
+	"mongodb+srv://testUser:1234@cluster0.ypocggm.mongodb.net/Database?retryWrites=true&w=majority&appName=Cluster0",
+);
 
 const Schema = mongoose.Schema;
 
-const user_count = mongoose.model('user_count', new Schema({
-
-	Count: String,
-
-}), 'UserCount');
-
-
+const UserCount = mongoose.model(
+	"UserCount",
+	new Schema({
+		Count: String,
+	}),
+	"UserCount",
+);
 
 app.get("/", (req, res) => {
 
+	const new_UserCount = new UserCount({
 
-	const new_count = new user_count({Count: "1",}).save();
+		Count: "1",
 
+
+	}).save();
 
 });
 
